@@ -43,6 +43,7 @@ public class KeyGenerator {
 	 * Generates key using the RSA algorithm.
 	 * @param p_bits The length of the p prime number
 	 * @param q_bits The length of the p prime number
+	 * @throws Exception if a keypair is already generated
 	 * */
 	public void generateKey(int p_bits, int q_bits) throws Exception {
 		if(isKeyGenerated)
@@ -79,6 +80,7 @@ public class KeyGenerator {
 	/**
 	 * Writes the keys into a file specified by parameter {@code fileName}.
 	 * @param fileName Name of the file the keys will be written to.
+	 * @throws IOException if IOException occurs
 	 * */
 	public void writeKeysToFile(String fileName) throws IOException {
 		PrintWriter printWriter = new PrintWriter(fileName);

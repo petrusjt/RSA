@@ -12,6 +12,7 @@ public class Encryptor {
 	 * Encrypts the given message using the RSA algorithm.
 	 * @param message The message to be encrypted.
 	 * @param publicKey {@code PublicKey} object representing the public part of the key.
+	 * @return {@code BigInteger} object representing the encrypted message
 	 * */
 	public static BigInteger encrypt(String message, PublicKey publicKey)
 	{
