@@ -34,6 +34,7 @@ public class KeyGenerator {
 	}
 	/**
 	 * Generates key using the RSA algorithm.
+	 * @throws Exception if a keypair is already generated
 	 * */
 	public void generateKey() throws Exception {
 		generateKey(256,256);
@@ -42,7 +43,7 @@ public class KeyGenerator {
 	/**
 	 * Generates key using the RSA algorithm.
 	 * @param p_bits The length of the p prime number
-	 * @param q_bits The length of the p prime number
+	 * @param q_bits The length of the q prime number
 	 * @throws Exception if a keypair is already generated
 	 * */
 	public void generateKey(int p_bits, int q_bits) throws Exception {
