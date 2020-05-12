@@ -2,12 +2,14 @@ package rsa.keygeneration;
 
 import rsa.keygeneration.helper.ExtendedEuclidean;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.Random;
 
+/**
+ * Class for generating the encryption and decryption keys using the RSA algorithm.
+ * */
 public class KeyGenerator {
 	private PrivateKey privateKey;
 	private PublicKey publicKey;
@@ -17,21 +19,31 @@ public class KeyGenerator {
 
 	public KeyGenerator()
 	{
-		r = new Random();
-		isKeyGenerated = false;
+		this(1000);
 	}
 
+	/**
+	 * Creates {@code KeyGenerator} object.
+	 * @param certainty The certainty that p and q will be prime numbers.
+	 * */
 	public KeyGenerator(int certainty)
 	{
 		r = new Random();
 		isKeyGenerated = false;
 		this.certainty = certainty;
 	}
-
+	/**
+	 * Generates key using the RSA algorithm.
+	 * */
 	public void generateKey() throws Exception {
 		generateKey(256,256);
 	}
 
+	/**
+	 * Generates key using the RSA algorithm.
+	 * @param p_bits The length of the p prime number
+	 * @param q_bits The length of the p prime number
+	 * */
 	public void generateKey(int p_bits, int q_bits) throws Exception {
 		if(isKeyGenerated)
 		{
@@ -64,6 +76,10 @@ public class KeyGenerator {
 		writeKeysToFile("keys.txt");
 	}
 
+	/**
+	 * Writes the keys into a file specified by parameter {@code fileName}.
+	 * @param fileName Name of the file the keys will be written to.
+	 * */
 	public void writeKeysToFile(String fileName) throws IOException {
 		PrintWriter printWriter = new PrintWriter(fileName);
 		printWriter.println(privateKey.getP() + " " + privateKey.getQ() + " " + privateKey.getD());

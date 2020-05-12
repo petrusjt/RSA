@@ -3,8 +3,13 @@ package main;
 import rsa.keygeneration.KeyGenerator;
 
 import java.io.IOException;
-
+/**
+ * Main class for key generation.
+ * */
 public class KeyGenMain {
+	/**
+	 * Main method for key generation.
+	 * */
 	public static void main(String[] args) {
 		KeyGenerator keyGenerator = new KeyGenerator();
 		try {

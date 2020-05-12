@@ -2,6 +2,9 @@ package rsa.keygeneration;
 
 import java.math.BigInteger;
 
+/**
+ * Class representing the private part of an RSA keypair.
+ * */
 public class PublicKey {
 	private BigInteger e;
 	private BigInteger n;
