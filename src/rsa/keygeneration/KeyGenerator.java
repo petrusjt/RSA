@@ -5,7 +5,7 @@ import rsa.keygeneration.helper.ExtendedEuclidean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * Class for generating the encryption and decryption keys using the RSA algorithm.
@@ -13,7 +13,7 @@ import java.util.Random;
 public class KeyGenerator {
 	private PrivateKey privateKey;
 	private PublicKey publicKey;
-	private Random r;
+	private SecureRandom r;
 	private boolean isKeyGenerated;
 	private int certainty;
 
@@ -28,7 +28,7 @@ public class KeyGenerator {
 	 * */
 	public KeyGenerator(int certainty)
 	{
-		r = new Random();
+		r = new SecureRandom();
 		isKeyGenerated = false;
 		this.certainty = certainty;
 	}
