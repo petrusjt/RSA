@@ -65,10 +65,16 @@ public class Main {
 		stdinScanner.close();
 		System.out.println("Message: " + message);
 
+		long start = System.currentTimeMillis();
 		BigInteger encryptedBigInteger = Encryptor.encrypt(message, publicKey);
 		System.out.println("Encrypted message in decimal format: " + encryptedBigInteger);
+		long end = System.currentTimeMillis();
+		System.out.println("Titkosítás: " + (end - start) / 1000.0 + "s");
 
+		start = System.currentTimeMillis();
 		String decryptedMessage = Decryptor.decrypt(encryptedBigInteger, privateKey);
 		System.out.println("Decrypted message: " + decryptedMessage);
+		end = System.currentTimeMillis();
+		System.out.println("Visszafejtés: " + (end - start) / 1000.0 + "s");
 	}
 }

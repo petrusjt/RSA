@@ -8,13 +8,16 @@ import java.io.IOException;
  * */
 public class KeyGenMain {
 	public static void main(String[] args) {
+		long start = System.currentTimeMillis();
 		KeyGenerator keyGenerator = new KeyGenerator();
 		try {
-			keyGenerator.generateKey(2048,2048);
+			keyGenerator.generateKey(4096,4096);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
 		}
+		long end = System.currentTimeMillis();
+		System.out.println("Kulcsgenerálás: " + (end - start) + "ms");
 		try {
 			keyGenerator.writeKeysToFile();
 		} catch (IOException e) {

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.List;
 
 /**
  * Class for generating the encryption and decryption keys using the RSA algorithm.
@@ -57,16 +58,24 @@ public class KeyGenerator {
 		BigInteger n = p.multiply(q);
 		BigInteger phi_n = p.subtract(new BigInteger("1")).multiply(q.subtract(new BigInteger("1")));;
 
-		BigInteger e = new BigInteger("53");
-		while(!phi_n.gcd(e).equals(BigInteger.ONE))
+		BigInteger e;
+
+		List<BigInteger> list = null;
+		do
 		{
-			e.add(new BigInteger("2"));
-		}
+			e = new BigInteger(512, certainty, r);
+			list = ExtendedEuclidean.extendedEuclidean(e,phi_n);
+		}while(!list.get(0).equals(BigInteger.ONE));
 		System.out.println("E generated");
-		BigInteger d = ExtendedEuclidean.extendedEuclidean(e, phi_n).get(1);
+		System.out.println("E: "+e);
+		BigInteger d = list.get(1);
+		System.out.println("D: "+d);
+		System.out.println("PHI_N: "+phi_n);
+
+		int i = 0;
 		while(d.compareTo(BigInteger.ZERO) < 0)
 		{
-			d.add(phi_n);
+			d = d.add(phi_n);
 		}
 		System.out.println("D generated");
 		privateKey = new PrivateKey(p, q, d);
