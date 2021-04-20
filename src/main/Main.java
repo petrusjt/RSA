@@ -2,12 +2,15 @@ package main;
 
 import rsa.encryption.Decryptor;
 import rsa.encryption.Encryptor;
+import rsa.encryption.UnlimitedDecryptor;
+import rsa.encryption.UnlimitedEncryptor;
 import rsa.keygeneration.PrivateKey;
 import rsa.keygeneration.PublicKey;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -65,16 +68,14 @@ public class Main {
 		stdinScanner.close();
 		System.out.println("Message: " + message);
 
-		long start = System.currentTimeMillis();
-		BigInteger encryptedBigInteger = Encryptor.encrypt(message, publicKey);
-		System.out.println("Encrypted message in decimal format: " + encryptedBigInteger);
-		long end = System.currentTimeMillis();
-		System.out.println("Titkosítás: " + (end - start) / 1000.0 + "s");
+		List<BigInteger> encryptedPartitions = UnlimitedEncryptor.encryptText(message, publicKey);
+		//BigInteger encryptedBigInteger = Encryptor.encrypt(message, publicKey);
+		//System.out.println("Encrypted message in decimal format: " + encryptedBigInteger);
+		System.out.println("Encrypted message in decimal format: " + encryptedPartitions);
 
-		start = System.currentTimeMillis();
-		String decryptedMessage = Decryptor.decrypt(encryptedBigInteger, privateKey);
+		//String decryptedMessage = Decryptor.decrypt(encryptedBigInteger, privateKey);
+		//System.out.println("Decrypted message: " + decryptedMessage);
+		String decryptedMessage = UnlimitedDecryptor.decryptBigIntList(encryptedPartitions, privateKey);
 		System.out.println("Decrypted message: " + decryptedMessage);
-		end = System.currentTimeMillis();
-		System.out.println("Visszafejtés: " + (end - start) / 1000.0 + "s");
 	}
 }
