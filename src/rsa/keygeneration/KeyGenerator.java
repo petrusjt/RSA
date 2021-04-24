@@ -1,6 +1,7 @@
 package rsa.keygeneration;
 
 import rsa.keygeneration.helper.ExtendedEuclidean;
+import rsa.keygeneration.helper.PrimeTestHelper;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,8 +53,14 @@ public class KeyGenerator {
 		{
 			throw new Exception("Key already generated. To generate another key, create another instance of this class.");
 		}
-		BigInteger p = new BigInteger(p_bits, this.certainty, r);
-		BigInteger q = new BigInteger(q_bits, this.certainty, r);
+		BigInteger p;
+		BigInteger q;
+		do {
+			p = new BigInteger(p_bits, 1,r);
+		} while (!PrimeTestHelper.isProbablePrime(p));
+		do {
+			q = new BigInteger(q_bits, 1, r);
+		} while (!PrimeTestHelper.isProbablePrime(q));
 
 		BigInteger n = p.multiply(q);
 		BigInteger phi_n = p.subtract(new BigInteger("1")).multiply(q.subtract(new BigInteger("1")));;

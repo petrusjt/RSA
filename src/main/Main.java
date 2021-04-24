@@ -19,7 +19,9 @@ public class Main {
 		PublicKey publicKey = new PublicKey();
 		PrivateKey privateKey = new PrivateKey();
 
-		if(args.length != 1)
+		String message = "";
+
+		if(args.length < 1)
 		{
 			System.out.println("Usage:");
 			System.out.println("\t java Main <keyfile>");
@@ -30,11 +32,11 @@ public class Main {
 		}
 		else
 		{
-			File file = new File(args[0]);
-			if(file.exists() && file.isFile())
+			File keyFile = new File(args[0]);
+			if(keyFile.exists() && keyFile.isFile())
 			{
 				try {
-					Scanner fileReader = new Scanner(file);
+					Scanner fileReader = new Scanner(keyFile);
 					String p;
 					String q;
 					String d;
@@ -57,20 +59,34 @@ public class Main {
 				System.err.println("File " + args[0] + " cannot be found.");
 				System.exit(-1);
 			}
-		}
-		System.out.println(privateKey);
-		System.out.println(publicKey);
 
-		String message;
-		Scanner stdinScanner = new Scanner(System.in);
-		System.out.println("Please input the text to encrypt and decrypt:");
-		message = stdinScanner.nextLine();
-		stdinScanner.close();
+			if (args.length > 1) {
+				File messageFile = new File(args[1]);
+				try {
+					Scanner scanner = new Scanner(messageFile);
+					while (scanner.hasNextLine()) {
+						message += scanner.nextLine();
+					}
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		//System.out.println(privateKey);
+		//System.out.println(publicKey);
+
+		if (message.equals("")) {
+			Scanner stdinScanner = new Scanner(System.in);
+			System.out.println("Please input the text to encrypt and decrypt:");
+			message = stdinScanner.nextLine();
+			stdinScanner.close();
+		}
 		System.out.println("Message: " + message);
 
 		List<BigInteger> encryptedPartitions = UnlimitedEncryptor.encryptText(message, publicKey);
 		//BigInteger encryptedBigInteger = Encryptor.encrypt(message, publicKey);
-		//System.out.println("Encrypted message in decimal format: " + encryptedBigInteger);
+		////System.out.println("Encrypted message in decimal format: " + encryptedBigInteger);
 		System.out.println("Encrypted message in decimal format: " + encryptedPartitions);
 
 		//String decryptedMessage = Decryptor.decrypt(encryptedBigInteger, privateKey);

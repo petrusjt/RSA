@@ -5,7 +5,7 @@ import rsa.keygeneration.PublicKey;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-/*asdsadadgdsa*/
+
 public class UnlimitedEncryptor {
 
     private static List<String> partitionStringBy(final String str, final int partitionSize) {
@@ -26,7 +26,7 @@ public class UnlimitedEncryptor {
     public static List<BigInteger> encryptText(final String text, final PublicKey publicKey) {
         List<BigInteger> encryptedPartitions = new ArrayList<>();
 
-        partitionStringBy(text, 256).stream()
+        partitionStringBy(text, 64).stream()
                 .forEach(str -> {
                     encryptedPartitions.add(Encryptor.encrypt(str, publicKey));
                         });

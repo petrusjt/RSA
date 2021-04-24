@@ -11,7 +11,7 @@ public class KeyGenMain {
 		long start = System.currentTimeMillis();
 		KeyGenerator keyGenerator = new KeyGenerator();
 		try {
-			keyGenerator.generateKey(4096,4096);
+			keyGenerator.generateKey(1024,1024);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
